@@ -32,7 +32,9 @@ namespace API
         {
             //String conexão
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DevConexao")));
-            
+
+            services.AddCors();
+
             //Definição de modelo MVC na API
             services.AddControllers();
 
@@ -46,9 +48,9 @@ namespace API
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //Serviço de escopo
-            services.AddScoped<IExemploService, ExemploService>();
-            services.AddScoped<IExemploRepository, ExemploRepository>();
             services.AddScoped<IGeralRepository, GeralRepository>();
+            services.AddScoped<IPerguntasRepository, PerguntasRepository>();
+            services.AddScoped<IPerguntasService, PerguntasService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -66,6 +68,16 @@ namespace API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(c =>
+            {
+                c.AllowAnyHeader();
+                c.AllowAnyMethod();
+                c.AllowAnyOrigin();
+                c.WithExposedHeaders("Content-Disposition");
+            });
+
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {

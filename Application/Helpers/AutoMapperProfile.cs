@@ -1,7 +1,5 @@
 ﻿using Application.Dto;
-using Application.Filter;
 using AutoMapper;
-using Domain.Filter;
 using Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -15,8 +13,8 @@ namespace Application.Helpers
     {
         public AutoMapperProfile()
         {
-            CreateMap<Exemplo, ExemploDto>().ReverseMap();
-            CreateMap<ExemploFiltro, ExemploFiltroDto>().ReverseMap();
+            CreateMap<Resposta, RespostaDto>().ReverseMap();
+            CreateMap<Pergunta, PerguntaDto>().ReverseMap();
         }
     }
 }
